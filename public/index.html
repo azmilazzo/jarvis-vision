@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jarvis Vision</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <video id="webcamFeed" autoplay></video>
+    <button id="captureBtn">Capture & Analyze</button>
+    <div id="analysisResult"></div>
+  </div>
+
+  <script type="module">
+    import { Jarvis } from '../src/jarvis.js';
+    import { ImageCapture } from '../src/services/captureImage.js';
+
+    const jarvis = new Jarvis();
+    const videoElement = document.getElementById('webcamFeed');
+    const imageCapture = new ImageCapture(videoElement);
+
+    // Initialize camera
+    imageCapture.initializeCamera().catch(console.error);
+
+    // Capture button handler
+    document.getElementById('captureBtn').addEventListener('click', async () => {
+      const imageData = imageCapture.captureFrame();
+      try {
+        const analysis = await jarvis.analyzeImage(imageData);
+        document.getElementById('analysisResult').innerHTML = `
+          <h3>Analysis Results:</h3>
+          <p>${analysis.summary}</p>
+          <div class="keywords">${analysis.keywords.join(', ')}</div>
+        `;
+      } catch (error) {
+        console.error('Analysis failed:', error);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#webcamFeed {
+  width: 100%;
+  border: 2px solid #00ff00;
+  margin-bottom: 20px;
+}
+
+#captureBtn {
+  background: #1a73e8;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#analysisResult {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0,0,0,0.8);
+  color: #00ff00;
+}
